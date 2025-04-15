@@ -30,6 +30,7 @@ public class Item {
     @NotNull(message = "Campo obrigatório")
     @Positive(message = "Preço precisa ser maior que zero.")
     private BigDecimal price;
+    @NotNull(message = "O item deve ter um dono.")
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Personagem owner;
