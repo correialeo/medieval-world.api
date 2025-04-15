@@ -4,10 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +28,7 @@ public class Personagem {
     private EPersonagemClass classe;
     @NotNull(message = "Campo obrigatório")
     @Min(value = 1, message = "O nível deve ser maior que 0")
+    @Max(value = 99, message = "Você atingiu o nível máximo")
     private Integer nivel;
     @PositiveOrZero(message = "Moeda deve ser igual ou maior que zero")
     private BigDecimal moedas;
