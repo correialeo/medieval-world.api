@@ -24,7 +24,7 @@ public class Item {
     private String nome;
     @NotNull(message = "Campo obrigatório")
     private EItemType type;
-    @NotBlank(message = "Campo obrigatório")
+    @NotNull(message = "Campo obrigatório")
     private EItemRarity rarity;
     @NotNull(message = "Campo obrigatório")
     @PositiveOrZero(message = "Preço ser igual ou maior que zero")
