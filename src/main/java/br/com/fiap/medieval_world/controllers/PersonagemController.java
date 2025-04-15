@@ -1,5 +1,6 @@
 package br.com.fiap.medieval_world.controllers;
 
+import br.com.fiap.medieval_world.models.EPersonagemClass;
 import br.com.fiap.medieval_world.models.Personagem;
 import br.com.fiap.medieval_world.repositories.PersonagemRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,6 +21,9 @@ import java.util.List;
 @RequestMapping("api/personagem")
 @Slf4j
 public class PersonagemController {
+
+    public record PersonagemFilter(String nome, EPersonagemClass classe){}
+
     @Autowired
     private PersonagemRepository personagemRepository;
 

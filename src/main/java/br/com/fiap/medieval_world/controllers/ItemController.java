@@ -1,5 +1,7 @@
 package br.com.fiap.medieval_world.controllers;
 
+import br.com.fiap.medieval_world.models.EItemRarity;
+import br.com.fiap.medieval_world.models.EItemType;
 import br.com.fiap.medieval_world.models.Item;
 import br.com.fiap.medieval_world.repositories.ItemRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,12 +16,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/item")
 @Slf4j
 public class ItemController {
+
+    public record ItemFilter(
+            String nome,
+            EItemType tipo,
+            EItemRarity raridade,
+            BigDecimal precoMin,
+            BigDecimal precoMax
+    ) {}
 
     @Autowired
     private ItemRepository itemRepository;
