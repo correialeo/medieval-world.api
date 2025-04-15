@@ -4,6 +4,7 @@ import br.com.fiap.medieval_world.models.EItemRarity;
 import br.com.fiap.medieval_world.models.EItemType;
 import br.com.fiap.medieval_world.models.Item;
 import br.com.fiap.medieval_world.repositories.ItemRepository;
+import br.com.fiap.medieval_world.specification.ItemSpecification;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,8 +40,9 @@ public class ItemController {
     @GetMapping
     @Cacheable("item")
     @Operation(description = "Get all items", tags = "item", summary = "Item's list")
-    public List<Item> index() {
-        return itemRepository.findAll();
+    public List<Item> index(ItemFilter filter) {
+        Specification<Item> specification = ItemSpecification.withFilters(filter);
+        return itemRepository.findAll(specification);
     }
 
     @PostMapping

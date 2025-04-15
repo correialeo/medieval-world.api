@@ -3,6 +3,7 @@ package br.com.fiap.medieval_world.controllers;
 import br.com.fiap.medieval_world.models.EPersonagemClass;
 import br.com.fiap.medieval_world.models.Personagem;
 import br.com.fiap.medieval_world.repositories.PersonagemRepository;
+import br.com.fiap.medieval_world.specification.PersonagemSpecification;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +33,9 @@ public class PersonagemController {
     @Cacheable("personagem")
     @Operation(description = "Get all personagens",
         tags = "personagem", summary = "Personagem's list")
-    public List<Personagem> index(){
-        return personagemRepository.findAll();
+    public List<Personagem> index(PersonagemFilter filter){
+        Specification<Personagem> specification = PersonagemSpecification.withFilters(filter);
+        return personagemRepository.findAll(specification);
     }
 
     @PostMapping
